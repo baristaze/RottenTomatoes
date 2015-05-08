@@ -14,6 +14,7 @@
 		602DC2731AFD690A00835A60 /* RottenTomatoesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC2721AFD690A00835A60 /* RottenTomatoesTests.swift */; };
 		602DC27D1AFD6C2200835A60 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC27C1AFD6C2200835A60 /* MoviesViewController.swift */; };
 		602DC2801AFD718000835A60 /* DVDsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC27F1AFD718000835A60 /* DVDsViewController.swift */; };
+		602DC2821AFD824B00835A60 /* MoviesTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC2811AFD824B00835A60 /* MoviesTableCell.swift */; };
 		C297888B2EE07D0494B05EA5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDDCF0F5ABF5CF1FBA22803 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		602DC2721AFD690A00835A60 /* RottenTomatoesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RottenTomatoesTests.swift; sourceTree = "<group>"; };
 		602DC27C1AFD6C2200835A60 /* MoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		602DC27F1AFD718000835A60 /* DVDsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DVDsViewController.swift; sourceTree = "<group>"; };
+		602DC2811AFD824B00835A60 /* MoviesTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesTableCell.swift; sourceTree = "<group>"; };
 		B41DF853A76590978D4E937D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B7B86FDA21760A69618476F2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +104,7 @@
 				602DC25A1AFD690A00835A60 /* Supporting Files */,
 				602DC27C1AFD6C2200835A60 /* MoviesViewController.swift */,
 				602DC27F1AFD718000835A60 /* DVDsViewController.swift */,
+				602DC2811AFD824B00835A60 /* MoviesTableCell.swift */,
 			);
 			path = RottenTomatoes;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				602DC25D1AFD690A00835A60 /* AppDelegate.swift in Sources */,
 				602DC27D1AFD6C2200835A60 /* MoviesViewController.swift in Sources */,
 				602DC2801AFD718000835A60 /* DVDsViewController.swift in Sources */,
+				602DC2821AFD824B00835A60 /* MoviesTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

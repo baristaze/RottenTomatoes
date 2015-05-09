@@ -23,10 +23,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // create refreshing control
         self.refreshControl = UIRefreshControl()
         self.refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
         self.movieTableView.insertSubview(self.refreshControl, atIndex: 0)
         
+        self.movieTableView.rowHeight = 100
         self.movieTableView.dataSource = self
         
         self.movieGridView.removeFromSuperview()
@@ -112,7 +114,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         cell.movieTitleLabel.text = movie["title"] as? String
         
         var count = self.moviesData?.count ?? 0;
-        if(!self.infiniteLoadingStarted && indexPath.row == self.moviesData.count){
+        if(!self.infiniteLoadingStarted && indexPath.row == (self.moviesData.count-1)){
             self.movieTableView.tableFooterView = self.tableFooterView;
             self.loadMoreMoviesWithOptions(false, removeFooter: true);
         }

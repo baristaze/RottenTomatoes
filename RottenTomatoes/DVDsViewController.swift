@@ -71,7 +71,8 @@ class DVDsViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func loadMoreDVDsWithOptions(endRefreshing:Bool, removeFooter:Bool){
         
-        self.queryDVDsWithCallback({(data:NSArray)->(Void) in
+        let showSpinner = !endRefreshing && !removeFooter
+        self.queryDVDsWithCallbackWithSpinner(showSpinner, callback:{(data:NSArray)->(Void) in
             
             if(endRefreshing){
                 var all = NSMutableArray(array: data as [AnyObject])
@@ -105,29 +106,34 @@ class DVDsViewController: UIViewController, UICollectionViewDataSource, UICollec
         self.loadMoreDVDsWithOptions(true, removeFooter: false);
     }
     
-    func queryDVDsWithCallback(callback:onDVDsRetrieved){
+    func queryDVDsWithCallbackWithSpinner(showSpinner:Bool, callback:onDVDsRetrieved){
         
         // show spinner
-        SVProgressHUD.show()
+        if(showSpinner){
+            SVProgressHUD.show()
+        }
         
         let url = NSURL(string: "https://gist.githubusercontent.com/timothy1ee/e41513a57049e21bc6cf/raw/b490e79be2d21818f28614ec933d5d8f467f0a66/gistfile1.json")!
         var request = NSURLRequest(URL: url)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             
-            // test-only: let the spinner be explicit
-            NSThread.sleepForTimeInterval(1.0)
-            
-            if (error == nil) {
-                var responseDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
-                var data = responseDictionary["movies"] as! NSArray
-                callback(data)
-            }   
-            else {
-                self.showErrorViewWithAutoDismiss()
-            }
-            
-            // dismiss spinner
-            SVProgressHUD.dismiss()
+            // this wrapper is for test-only: let the spinner be explicit
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (Int64)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
+                
+                if (error == nil) {
+                    var responseDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
+                    var data = responseDictionary["movies"] as! NSArray
+                    callback(data)
+                }
+                else {
+                    self.showErrorViewWithAutoDismiss()
+                }
+                
+                // dismiss spinner
+                if(showSpinner){
+                    SVProgressHUD.dismiss()
+                }
+            })
         }
     }
     

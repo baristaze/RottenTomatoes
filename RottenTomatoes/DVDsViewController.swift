@@ -107,9 +107,15 @@ class DVDsViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func queryDVDsWithCallback(callback:onDVDsRetrieved){
         
+        // show spinner
+        SVProgressHUD.show()
+        
         let url = NSURL(string: "https://gist.githubusercontent.com/timothy1ee/e41513a57049e21bc6cf/raw/b490e79be2d21818f28614ec933d5d8f467f0a66/gistfile1.json")!
         var request = NSURLRequest(URL: url)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+            
+            // test-only: let the spinner be explicit
+            NSThread.sleepForTimeInterval(1.0)
             
             if (error == nil) {
                 var responseDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
@@ -118,6 +124,9 @@ class DVDsViewController: UIViewController, UICollectionViewDataSource, UICollec
             }
             else {
             }
+            
+            // dismiss spinner
+            SVProgressHUD.dismiss()
         }
     }
     

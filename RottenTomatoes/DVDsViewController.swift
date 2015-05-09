@@ -8,12 +8,14 @@
 
 import UIKit
 
-class DVDsViewController: UIViewController {
+class DVDsViewController: UIViewController, UICollectionViewDataSource {
 
+    @IBOutlet weak var dvdsCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.dvdsCollectionView.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,6 +23,20 @@ class DVDsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return 10
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let cell = self.dvdsCollectionView.dequeueReusableCellWithReuseIdentifier("com.baris.rotten.dvds.cell", forIndexPath: indexPath) as! DvdCollectionCell
+        
+        let url = NSURL(string:"http://lorempixel.com/400/400/")
+        cell.dvdImageView.setImageWithURL(url)
+        
+        return cell
+    }
 
     /*
     // MARK: - Navigation

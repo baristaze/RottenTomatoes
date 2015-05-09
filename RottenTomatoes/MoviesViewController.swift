@@ -11,7 +11,6 @@ import UIKit
 class MoviesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate, UITableViewDelegate {
 
     @IBOutlet weak var movieTableView: UITableView!
-    @IBOutlet weak var movieGridView: UICollectionView!
     @IBOutlet var searchBar: UISearchBar!
     
     var tableFooterView:UIView!
@@ -37,12 +36,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UISearchBar
         
         self.movieTableView.rowHeight = 100
         self.movieTableView.dataSource = self
-        
-        self.movieGridView.removeFromSuperview()
-        self.view.addSubview(self.movieTableView)
-        
-        //self.movieTableView.removeFromSuperview()
-        //self.view.addSubview(self.movieGridView)
         
         self.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 55))
         var loadingView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)

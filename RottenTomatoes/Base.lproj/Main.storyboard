@@ -133,6 +133,7 @@
                                         </view>
                                         <connections>
                                             <outlet property="dvdImageView" destination="0B6-9m-at3" id="Tff-MO-W6X"/>
+                                            <segue destination="NYE-Sp-4OK" kind="push" id="RHg-XI-ZpX"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -140,14 +141,44 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="DVDs" id="ZHp-4P-Ozt"/>
+                    <navigationItem key="navigationItem" id="ZHp-4P-Ozt"/>
                     <connections>
                         <outlet property="dvdsCollectionView" destination="1QF-YR-spu" id="0W9-35-SIN"/>
+                        <outlet property="searchBar" destination="DZw-L0-1iK" id="3bb-80-kEB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HFd-QH-T8T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchBar contentMode="redraw" id="DZw-L0-1iK">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
             </objects>
             <point key="canvasLocation" x="728" y="1107"/>
+        </scene>
+        <!--Dvd Detail View Controller-->
+        <scene sceneID="y54-2s-Hu5">
+            <objects>
+                <viewController id="NYE-Sp-4OK" customClass="DvdDetailViewController" customModule="RottenTomatoes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4JT-aT-R8x">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="j0G-Of-Bdi">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="s5n-L0-HwH"/>
+                    <connections>
+                        <outlet property="dvdImageView" destination="j0G-Of-Bdi" id="AhB-ZF-Ihj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eeB-MV-LaQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1104" y="1107"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="udj-8H-Qh8">

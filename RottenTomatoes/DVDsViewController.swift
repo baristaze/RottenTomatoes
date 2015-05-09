@@ -8,10 +8,11 @@
 
 import UIKit
 
-class DVDsViewController: UIViewController, UICollectionViewDataSource {
+class DVDsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var dvdsCollectionView: UICollectionView!
-
+    @IBOutlet var searchBar: UISearchBar!
+    
     var infiniteLoadingStarted:Bool=false
     var refreshControl:UIRefreshControl!
     
@@ -24,6 +25,10 @@ class DVDsViewController: UIViewController, UICollectionViewDataSource {
         super.viewDidLoad()
 
         self.dvdsCollectionView.dataSource = self
+        self.dvdsCollectionView.delegate = self
+        
+         self.navigationItem.titleView = self.searchBar;
+        self.searchBar.delegate = self
         
         // create refreshing control
         self.refreshControl = UIRefreshControl()
@@ -138,24 +143,50 @@ class DVDsViewController: UIViewController, UICollectionViewDataSource {
         self.dvdsCollectionView.reloadData()
     }
     
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String){
+        
+        self.reloadTableData();
+        
+        if(!self.isFiltered()) {
+            NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("endSearching"), userInfo: nil, repeats: false)
+        }
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        self.endSearching()
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        self.endSearching()
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        self.endSearching()
+    }
+    
+    func endSearching() {
+        self.searchBar.endEditing(true)
+        self.searchBar.resignFirstResponder()
+    }
+
+    
     func getFilter() -> String {
-        //var filter = self.searchBar.text;
-        //return filter.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        return ""
+        var filter = self.searchBar.text;
+        return filter.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
     }
     
     func isFiltered() -> Bool {
         return count(self.getFilter()) >  0
     }
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        var indexPath = self.dvdsCollectionView.indexPathForCell(sender as! UICollectionViewCell)
+        let dvdInfo = self.dvdsDataFiltered[indexPath!.row] as! NSDictionary;
+        
+        var vc = segue.destinationViewController as! DvdDetailViewController
+        vc.dvdInfo = dvdInfo
     }
-    */
-
 }

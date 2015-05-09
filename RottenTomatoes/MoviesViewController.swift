@@ -196,6 +196,5 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UISearchBar
         
         var vc = segue.destinationViewController as! MovieDetailViewController
         vc.movie = movie
-        
     }
 }

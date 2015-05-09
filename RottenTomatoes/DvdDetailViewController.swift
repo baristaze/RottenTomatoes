@@ -1,5 +1,5 @@
 //
-//  MovieDetailViewController.swift
+//  DvdDetailViewController.swift
 //  RottenTomatoes
 //
 //  Created by Baris Taze on 5/8/15.
@@ -8,21 +8,22 @@
 
 import UIKit
 
-class MovieDetailViewController: UIViewController {
+class DvdDetailViewController: UIViewController {
 
-    var movie: NSDictionary?
-    @IBOutlet weak var posterImageView: UIImageView!
+    @IBOutlet weak var dvdImageView: UIImageView!
+    
+    var dvdInfo: NSDictionary!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let title = self.movie!["title"] as! String
+        let title = self.dvdInfo!["title"] as! String
         self.title = title
         
-        let posters = self.movie!["posters"] as! NSDictionary
+        let posters = self.dvdInfo!["posters"] as! NSDictionary
         let posterUrl = posters["original"] as! String
         let url = NSURL(string: posterUrl)
-        self.posterImageView.setImageWithURL(url)
+        self.dvdImageView.setImageWithURL(url)
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +31,7 @@ class MovieDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+
     /*
     // MARK: - Navigation
 

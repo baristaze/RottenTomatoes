@@ -121,8 +121,9 @@ class DVDsViewController: UIViewController, UICollectionViewDataSource, UICollec
                 var responseDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
                 var data = responseDictionary["movies"] as! NSArray
                 callback(data)
-            }
+            }   
             else {
+                self.showErrorViewWithAutoDismiss()
             }
             
             // dismiss spinner
@@ -130,6 +131,22 @@ class DVDsViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
     
+    func showErrorViewWithAutoDismiss(){
+        
+        let errorView = UIView(frame: CGRect(x:0, y:44, width:self.view.frame.width, height:100))
+        errorView.backgroundColor = UIColor(red: 0.8, green: 0.0, blue: 0.0, alpha: 0.8)
+        
+        let label = UILabel(frame: CGRect(x:20, y:10, width:(self.view.frame.width-40), height:100))
+        label.textColor = UIColor.whiteColor()
+        label.text = "An error occurred. Please try again later!"
+        errorView.addSubview(label)
+        self.view.addSubview(errorView)
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (Int64)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
+            errorView.removeFromSuperview()
+        })
+    }
+
     func reloadTableData(){
         
         self.dvdsDataFiltered.removeAllObjects()

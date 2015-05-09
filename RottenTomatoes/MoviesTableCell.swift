@@ -9,8 +9,8 @@
 import UIKit
 
 class MoviesTableCell: UITableViewCell {
-
-    @IBOutlet weak var movieImageView: UIView!
+    
+    @IBOutlet weak var movieImageView: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var movieSnopsisLabel: UILabel!
     

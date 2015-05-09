@@ -45,7 +45,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="KMe-WG-eXU">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="KMe-WG-eXU">
                                                     <rect key="frame" x="5" y="5" width="90" height="90"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
@@ -67,7 +67,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="movieImageView" destination="SVM-60-HnE" id="TSS-5S-EcE"/>
+                                            <outlet property="movieImageView" destination="KMe-WG-eXU" id="vS6-EK-mts"/>
                                             <outlet property="movieSnopsisLabel" destination="jEk-t1-kmk" id="pBk-0W-Wau"/>
                                             <outlet property="movieTitleLabel" destination="G52-JF-HQk" id="rhp-gc-aaQ"/>
                                         </connections>

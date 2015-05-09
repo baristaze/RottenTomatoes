@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MoviesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
+class MoviesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate, UITableViewDelegate {
 
     @IBOutlet weak var movieTableView: UITableView!
     @IBOutlet weak var movieGridView: UICollectionView!
@@ -28,6 +28,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UISearchBar
         self.navigationItem.titleView = self.searchBar;
 
         self.searchBar.delegate = self
+        self.movieTableView.delegate = self
         
         // create refreshing control
         self.refreshControl = UIRefreshControl()
@@ -193,15 +194,15 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UISearchBar
         return cell
     }
     
-
-    /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+        var indexPath = self.movieTableView.indexPathForCell(sender as! UITableViewCell)
+        let movie = self.moviesDataFiltered[indexPath!.row] as! NSDictionary;
+        
+        var vc = segue.destinationViewController as! MovieDetailViewController
+        vc.movie = movie
+        
     }
-    */
-
 }

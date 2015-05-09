@@ -70,6 +70,7 @@
                                             <outlet property="movieImageView" destination="KMe-WG-eXU" id="vS6-EK-mts"/>
                                             <outlet property="movieSnopsisLabel" destination="jEk-t1-kmk" id="pBk-0W-Wau"/>
                                             <outlet property="movieTitleLabel" destination="G52-JF-HQk" id="rhp-gc-aaQ"/>
+                                            <segue destination="UyH-mL-mGa" kind="push" id="6GB-GP-mnZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -91,7 +92,33 @@
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
             </objects>
-            <point key="canvasLocation" x="728" y="406"/>
+            <point key="canvasLocation" x="719" y="406"/>
+        </scene>
+        <!--Movie Detail View Controller-->
+        <scene sceneID="Ek8-Qe-9Gu">
+            <objects>
+                <viewController id="UyH-mL-mGa" customClass="MovieDetailViewController" customModule="RottenTomatoes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="h41-5b-rpO">
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="zWC-MN-nvw">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="DhH-Of-7xB"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
+                    <connections>
+                        <outlet property="posterImageView" destination="zWC-MN-nvw" id="a69-YZ-Agh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FdI-zF-oO7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1104" y="406"/>
         </scene>
         <!--DVDs-->
         <scene sceneID="bvd-57-4ag">
@@ -133,7 +160,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="w6G-GV-U2p" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Movies" image="MovieIcon" id="v4B-lm-stQ"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FwE-2X-UdQ">
+                    <navigationBar key="navigationBar" alpha="0.84999999999999987" contentMode="scaleToFill" id="FwE-2X-UdQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

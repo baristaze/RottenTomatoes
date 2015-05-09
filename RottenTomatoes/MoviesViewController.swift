@@ -8,20 +8,26 @@
 
 import UIKit
 
-class MoviesViewController: UIViewController, UITableViewDataSource {
+class MoviesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var movieTableView: UITableView!
     @IBOutlet weak var movieGridView: UICollectionView!
+    @IBOutlet var searchBar: UISearchBar!
     
     var tableFooterView:UIView!
     var infiniteLoadingStarted:Bool=false
     var refreshControl:UIRefreshControl!
     var moviesData: NSMutableArray!
+    var moviesDataFiltered: NSMutableArray!
     
     typealias onMoviesRetrieved = (NSArray) -> (Void)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.titleView = self.searchBar;
+
+        self.searchBar.delegate = self
         
         // create refreshing control
         self.refreshControl = UIRefreshControl()
@@ -43,6 +49,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         loadingView.center = tableFooterView.center
         
         self.moviesData = NSMutableArray()
+        self.moviesDataFiltered = NSMutableArray()
         self.loadMoreMoviesWithOptions(false, removeFooter: false);
     }
 
@@ -64,7 +71,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
                 self.moviesData.addObjectsFromArray(data as [AnyObject])
             }
             
-            self.movieTableView.reloadData()
+            self.reloadTableData()
             
             if(endRefreshing){
                 self.refreshControl.endRefreshing()
@@ -78,6 +85,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
     }
     
     func onRefresh() {
+        
+        if(self.isFiltered()){
+            self.refreshControl.endRefreshing()
+            return
+        }
+        
         self.loadMoreMoviesWithOptions(true, removeFooter: false);
     }
     
@@ -97,15 +110,73 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         }
     }
     
+    func getFilter() -> String {
+        var filter = self.searchBar.text;
+        return filter.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    }
+    
+    func isFiltered() -> Bool {
+        return count(self.getFilter()) >  0
+    }
+    
+    func reloadTableData(){
+        
+        self.moviesDataFiltered.removeAllObjects()
+        
+        var filter = getFilter()
+        let length = count(filter)
+        if(length > 0){
+            for movie in self.moviesData {
+                let title = movie["title"] as? String
+                let synopsis = movie["synopsis"] as? String
+                if((title != nil && title!.rangeOfString(filter) != nil) || (synopsis != nil && synopsis!.rangeOfString(filter) != nil)) {
+                        self.moviesDataFiltered.addObject(movie as AnyObject)
+                }
+            }
+        }
+        else{
+            self.moviesDataFiltered.addObjectsFromArray(self.moviesData as [AnyObject])
+        }
+        
+        self.movieTableView.reloadData()
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.moviesData?.count ?? 0
+        return self.moviesDataFiltered?.count ?? 0
+    }
+    
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String){
+        
+        self.reloadTableData();
+        
+        if(!self.isFiltered()) {
+            NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("endSearching"), userInfo: nil, repeats: false)
+        }
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        self.endSearching()
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        self.endSearching()
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        self.endSearching()
+    }
+    
+    func endSearching() {
+        self.searchBar.endEditing(true)
+        self.searchBar.resignFirstResponder()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = self.movieTableView.dequeueReusableCellWithIdentifier("com.baris.rotten.movies.cell", forIndexPath: indexPath) as! MoviesTableCell
         
-        let movie = self.moviesData[indexPath.row] as! NSDictionary;
+        let movie = self.moviesDataFiltered[indexPath.row] as! NSDictionary;
         let posters = movie["posters"] as! NSDictionary
         let posterThumbnail = posters["thumbnail"] as! String
         let posterThumbnailUrl = NSURL(string: posterThumbnail)
@@ -113,8 +184,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         cell.movieSnopsisLabel.text = movie["synopsis"] as? String
         cell.movieTitleLabel.text = movie["title"] as? String
         
-        var count = self.moviesData?.count ?? 0;
-        if(!self.infiniteLoadingStarted && indexPath.row == (self.moviesData.count-1)){
+        var count = self.moviesDataFiltered?.count ?? 0;
+        if(!self.isFiltered() && !self.infiniteLoadingStarted && indexPath.row == (self.moviesDataFiltered.count-1)){
             self.movieTableView.tableFooterView = self.tableFooterView;
             self.loadMoreMoviesWithOptions(false, removeFooter: true);
         }

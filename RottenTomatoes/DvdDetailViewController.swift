@@ -21,7 +21,10 @@ class DvdDetailViewController: UIViewController {
         self.title = title
         
         let posters = self.dvdInfo!["posters"] as! NSDictionary
-        let posterUrl = posters["original"] as! String
+        var posterUrl = posters["original"] as! String
+        let index = posterUrl.rangeOfString("/movie/")?.startIndex
+        posterUrl = posterUrl.substringFromIndex(index!)
+        posterUrl = "http://content6.flixster.com\(posterUrl)"
         let url = NSURL(string: posterUrl)
         self.dvdImageView.setImageWithURL(url)
     }

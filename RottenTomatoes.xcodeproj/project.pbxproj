@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		601617731B0024F10021E28D /* CustomUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601617721B0024F10021E28D /* CustomUILabel.swift */; };
 		602DC25D1AFD690A00835A60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC25C1AFD690A00835A60 /* AppDelegate.swift */; };
 		602DC2621AFD690A00835A60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 602DC2601AFD690A00835A60 /* Main.storyboard */; };
 		602DC2641AFD690A00835A60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 602DC2631AFD690A00835A60 /* Images.xcassets */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		1EDDCF0F5ABF5CF1FBA22803 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		601617721B0024F10021E28D /* CustomUILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUILabel.swift; sourceTree = "<group>"; };
 		602DC2571AFD690A00835A60 /* RottenTomatoes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RottenTomatoes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		602DC25B1AFD690A00835A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		602DC25C1AFD690A00835A60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				602DC2861AFDB0F600835A60 /* MovieDetailViewController.swift */,
 				602DC2881AFDBF7000835A60 /* DvdCollectionCell.swift */,
 				602DC28C1AFDD92800835A60 /* DvdDetailViewController.swift */,
+				601617721B0024F10021E28D /* CustomUILabel.swift */,
 			);
 			path = RottenTomatoes;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				602DC27D1AFD6C2200835A60 /* MoviesViewController.swift in Sources */,
 				602DC2801AFD718000835A60 /* DVDsViewController.swift in Sources */,
 				602DC2821AFD824B00835A60 /* MoviesTableCell.swift in Sources */,
+				601617731B0024F10021E28D /* CustomUILabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

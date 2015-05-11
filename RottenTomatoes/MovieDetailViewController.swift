@@ -15,8 +15,8 @@ class MovieDetailViewController: UIViewController {
     
     var movie: NSDictionary?
     var requiredHeightForSynopsisLabel:CGFloat = 200.0
-    var initialVisibleHeight:CGFloat = 200.0
-
+    var lastPanLocationY:CGFloat = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,7 +46,6 @@ class MovieDetailViewController: UIViewController {
         var currentY:CGFloat = self.synopsisLabelButton.frame.origin.y
         var currentVisibleHeight:CGFloat = self.view.frame.height - self.synopsisLabelButton.frame.origin.y
         currentVisibleHeight = currentVisibleHeight - self.tabBarController!.tabBar.frame.size.height
-        self.initialVisibleHeight = currentVisibleHeight
         if(self.requiredHeightForSynopsisLabel < currentVisibleHeight) {
             // push down
             currentY = currentY + (currentVisibleHeight - self.requiredHeightForSynopsisLabel)
@@ -84,7 +83,11 @@ class MovieDetailViewController: UIViewController {
     
         let panGesture = sender as! UIPanGestureRecognizer
         let point = panGesture.translationInView(self.view)
-        let deltaY = point.y
+        if(panGesture.state != UIGestureRecognizerState.Changed) {
+            self.lastPanLocationY = 0.0
+        }
+        var deltaY = point.y - self.lastPanLocationY
+        self.lastPanLocationY = point.y
         if(deltaY < 0) {
             // up
             var currentBottom = self.synopsisLabelButton.frame.origin.y + self.synopsisLabelButton.frame.height
@@ -101,7 +104,7 @@ class MovieDetailViewController: UIViewController {
         }
         else if (deltaY > 0) {
             // down
-            let minHeight = min(self.requiredHeightForSynopsisLabel, self.initialVisibleHeight)
+            let minHeight = min(self.requiredHeightForSynopsisLabel, 50.0)
             var currentVisibleHeight:CGFloat = self.view.frame.height - self.synopsisLabelButton.frame.origin.y
             currentVisibleHeight = currentVisibleHeight - self.tabBarController!.tabBar.frame.size.height
             if(currentVisibleHeight > minHeight) {

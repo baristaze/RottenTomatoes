@@ -15,7 +15,7 @@ class DvdDetailViewController: UIViewController {
 
     var dvdInfo: NSDictionary!
     var requiredHeightForSynopsisLabel:CGFloat = 200.0
-    var initialVisibleHeight:CGFloat = 200.0
+    var lastPanLocationY:CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,6 @@ class DvdDetailViewController: UIViewController {
         var currentY:CGFloat = self.synopsisButtonLabel.frame.origin.y
         var currentVisibleHeight:CGFloat = self.view.frame.height - self.synopsisButtonLabel.frame.origin.y
         currentVisibleHeight = currentVisibleHeight - self.tabBarController!.tabBar.frame.size.height
-        self.initialVisibleHeight = currentVisibleHeight
         if(self.requiredHeightForSynopsisLabel < currentVisibleHeight) {
             // push down
             currentY = currentY + (currentVisibleHeight - self.requiredHeightForSynopsisLabel)
@@ -81,7 +80,11 @@ class DvdDetailViewController: UIViewController {
     @IBAction func onLabelDrag(sender: AnyObject) {
         let panGesture = sender as! UIPanGestureRecognizer
         let point = panGesture.translationInView(self.view)
-        let deltaY = point.y
+        if(panGesture.state != UIGestureRecognizerState.Changed) {
+            self.lastPanLocationY = 0.0
+        }
+        var deltaY = point.y - self.lastPanLocationY
+        self.lastPanLocationY = point.y
         if(deltaY < 0) {
             // up
             var currentBottom = self.synopsisButtonLabel.frame.origin.y + self.synopsisButtonLabel.frame.height
@@ -98,7 +101,7 @@ class DvdDetailViewController: UIViewController {
         }
         else if (deltaY > 0) {
             // down
-            let minHeight = min(self.requiredHeightForSynopsisLabel, self.initialVisibleHeight)
+            let minHeight = min(self.requiredHeightForSynopsisLabel, 50.0)
             var currentVisibleHeight:CGFloat = self.view.frame.height - self.synopsisButtonLabel.frame.origin.y
             currentVisibleHeight = currentVisibleHeight - self.tabBarController!.tabBar.frame.size.height
             if(currentVisibleHeight > minHeight) {

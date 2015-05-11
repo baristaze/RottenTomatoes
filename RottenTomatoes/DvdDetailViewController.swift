@@ -80,7 +80,7 @@ class DvdDetailViewController: UIViewController {
     
     @IBAction func onLabelDrag(sender: AnyObject) {
         let panGesture = sender as! UIPanGestureRecognizer
-        let point = panGesture.translationInView(self.synopsisButtonLabel)
+        let point = panGesture.translationInView(self.view)
         let deltaY = point.y
         if(deltaY < 0) {
             // up

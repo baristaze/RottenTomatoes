@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: This is NOT IN USE. Delete later
 class CustomUILabel: UILabel {
 
     override func drawTextInRect(rect: CGRect) {
